@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: laravel-db
+    restart: unless-stopped
+    ports:
+      - '3306:3306'
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - laravel-network
+    environment:
+      MYSQL_ROOT_PASSWORD: '123456'
+      MYSQL_DATABASE: 'laravel'
+    healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 20s
+            retries: 10
+  cache:
+    image: eqalpha/keydb:alpine
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    command: keydb-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes:
+      - cache:/data
+    networks:
+      - laravel-network
+networks:
+  laravel-network:
+    name: laravel
+volumes:
+  cache:
+    driver: local
+  db:
+    driver: local
