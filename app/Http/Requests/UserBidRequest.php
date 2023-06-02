@@ -36,7 +36,7 @@ class UserBidRequest extends BaseApiRequest
                 function ($attribute, $value, $fail) {
                     $currentHighestPrice = Bid::max('price');
                     if ($value <= $currentHighestPrice) {
-                        $currentHighestPrice + 1;
+                        $currentHighestPrice++;
                         $fail("The bid price cannot lower than {$currentHighestPrice}");
                     }
                 },

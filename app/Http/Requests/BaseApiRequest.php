@@ -11,13 +11,13 @@ use Illuminate\Http\JsonResponse;
 class BaseApiRequest extends FormRequest
 {
 
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-            'message' => 'error',
-            'errors' => $validator->errors(),
-        ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY));
+    // protected function failedValidation(Validator $validator)
+    // {
+    //     throw new HttpResponseException(response()->json([
+    //         'message' => 'error',
+    //         'errors' => $validator->errors(),
+    //     ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY));
 
-        parent::failedValidation($validator);
-    }
+    //     parent::failedValidation($validator);
+    // }
 }
